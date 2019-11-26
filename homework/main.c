@@ -1,100 +1,69 @@
 #include <stdio.h>
 #include <stdlib.h>
-typedef char ElementType;
-typedef struct TNode *Position;
-typedef Position BinTree;
-struct TNode{
-    ElementType Data;
-    BinTree Left;
-    BinTree Right;
-};
-BinTree CreatBinTree(); /* 实现细节忽略 */
-void InorderTraversal( BinTree BT );
-void PreorderTraversal( BinTree BT );
-void PostorderTraversal( BinTree BT );
-void LevelorderTraversal( BinTree BT );
+typedef struct node
+{
+    int data;
+    struct node *next;
+}Node;
+//创建一个结点
+Node* Creatlist()
+{
+    Node *p = (Node *)malloc(sizeof(Node));
+    //p->data = data;
+    p->next = NULL;
+    return p;
+}
+//插入结点
+void Insert(Node *p,int x)//头插法
+{
+    int n;
+    scanf("%d",&n);
+    Node *head =(Node *)malloc(sizeof(Node));
+    head->data = 2;
+    head->next=NULL;//头结点
+    for(int i=0;i<n;i++)
+    {
+        Node *t =(Node *)malloc(sizeof(Node));
+        t->data =x;
+        t->next =head->next ;
+        head->next =t;
+    }
+    while(head!=NULL)
+    {
+        printf("%d",head->data);
+        head=head->next;
+    }
+}
+void Insert2(Node*p,int x)//尾插法
+{
+    int n;
+    scanf("%d",&n);
+    Node* tmp;//指向结尾的指针；
+    Node *head =(Node *)malloc(sizeof(Node));
+    head->next=NULL;//头结点
+    tmp = head;
+    for(int i=0;i<n;i++)
+    {
+        Node *t =(Node *)malloc(sizeof(Node));
+        t->data =x;
+        tmp->next=t;
+        tmp=t;
+    }
+    while(head!=NULL)
+    {
+        printf("%d",head->data);
+        head=head->next;
+    }
+    
+}
+//遍历打印输出链表
+
 
 int main()
 {
-    BinTree BT = CreatBinTree();
-    printf("Inorder:");    InorderTraversal(BT);    printf("\n");
-    printf("Preorder:");   PreorderTraversal(BT);   printf("\n");
-    printf("Postorder:");  PostorderTraversal(BT);  printf("\n");
-    printf("Levelorder:"); LevelorderTraversal(BT); printf("\n");
+    Node* s =Creatlist();
+
+    Insert2(s,3);
+    //Insert2(s,2);
     return 0;
-}
-void InorderTraversal( BinTree BT )//中序遍历
-{
-    if (BT!=NULL)
-    {
-        InorderTraversal(BT->Left);
-        printf("%d ",BT->Data);
-        InorderTraversal(BT->Right);
-    }
-    
-}
-void PreorderTraversal( BinTree BT )//先序遍历
-{
-    if(BT!=NULL)
-    {
-        printf("%d ",BT->Data);
-        PreorderTraversal(BT->Left);
-        PreorderTraversal(BT->Right);
-    }
-    
-}
-void PostorderTraversal( BinTree BT )//后序遍历
-{
-    if(BT!=NULL)
-    {
-        PostorderTraversal(BT->Left);
-        PostorderTraversal(BT->Right);
-        printf("%d ",BT->Data);
-    }
-}
-typedef int Position;
-typedef struct QNode *PtroToQNode;
-struct QNode
-{
-    char *Data;
-    Position Front,Rear;
-    int MaxSize;
-};
-typedef PtroToQNode Queue;
-Queue CreatBinTree()
-{
-    Queue Q=(Queue)malloc(sizeof(struct QNode));
-    Q->Data=(char*)malloc(MaxSize*sizeof(char));
-    Q->Front=Q->Rear=0;
-    Q->MaxSize=MaxSize;
-    
-}
-void LevelorderTraversal( BinTree BT )//层序遍历
-{
-    Queue Q;
-    BinTree T;
-    Q=CreatBinTree();
-    if(BT==NULL)
-    {
-        return;
-    }else
-    {
-        AddQ(Q,BT);
-        while(Q!=NULL)
-        {
-            T=Delete(Q);
-            printf("%d ",T->Data);
-            if(T->Left)
-                Adda(Q,T->Left);
-             if(T->Right)
-                Adda(Q,T->Right);
-        }
-        
-        
-    }
-}
-Queue CreatBinTree()
-{
-    Queue Q=(Queue)malloc(sizeof(struct QNode));
-    
 }
